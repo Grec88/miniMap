@@ -2,7 +2,7 @@ export const tabs = () => {
   const buttons = document.querySelectorAll(".map-button");
   const block = document.querySelector(".map-wrapper");
 
-  function toggleLabel(event) {
+  function toggleButtonDesc(event) {
       const greenBackground =  "#6ABF4B";
       const blueBackground = "#3877EE";
       const button = event.target;
@@ -16,22 +16,22 @@ export const tabs = () => {
       }
   }
 
-  function closeAllLabels() {
+  function closeAllButtonDesc() {
       for (let button of buttons) {
-          const label = button.querySelector(".map-button-desc");
+          const buttonDesc = button.querySelector(".map-button-desc");
           button.style['background-color'] = 'unset';
-          label.style.display = "none";
+          buttonDesc.style.display = "none";
       }
   }
 
   for (let button of buttons) {
-      button.addEventListener("click", toggleLabel);
+      button.addEventListener("click", toggleButtonDesc);
   }
 
   block.addEventListener("click", function(event) {
 
       if (event.target === block) {
-          closeAllLabels();
+        closeAllButtonDesc();
       }
   });
 
