@@ -1,38 +1,39 @@
 export const tabs = () => {
-  const buttons = document.querySelectorAll(".map-button");
   const block = document.querySelector(".map-wrapper");
+  const buttons = block.querySelectorAll(".map-button");
+  const buttonDescs = block.querySelectorAll(".map-button-desc");
 
-  function toggleLabel(event) {
-      const greenBackground =  "#6ABF4B";
-      const blueBackground = "#3877EE";
-      const button = event.target;
+  function toggleButtonDesc(event) {
+    const button = event.target;
+
+    if (button.classList.contains("map-button")) {
       const buttonDesc = button.querySelector(".map-button-desc");
-      if (buttonDesc.style.display === "none") {
-          closeAllLabels();
-         buttonDesc.style.display = "block";
-          button.style['background-color'] = button.classList.contains("map-button-green") ? greenBackground : blueBackground;
+      const greenBackground = "#6ABF4B";
+      const blueBackground = "#3877EE";
+
+      if (!buttonDesc.classList.contains('map-button-desc-active')) {
+        closeAllButtonDesc();
+        buttonDesc.classList.add('map-button-desc-active');
+        button.style["background-color"] =
+          button.classList.contains("map-button-green")
+            ? greenBackground
+            : blueBackground;
       } else {
-          buttonDesc.style.display = "none";
+        buttonDesc.classList.remove('map-button-desc-active');
+        button.style["background-color"] = "unset";
       }
+    } else{
+    closeAllButtonDesc();
+    }
   }
 
-  function closeAllLabels() {
-      for (let button of buttons) {
-          const label = button.querySelector(".map-button-desc");
-          button.style['background-color'] = 'unset';
-          label.style.display = "none";
-      }
+  function closeAllButtonDesc() {
+
+    for (let i = 0; i < buttons.length; i++) {
+      buttonDescs[i].classList.remove('map-button-desc-active');
+      buttons[i].style["background-color"] = "unset";
+    }
   }
 
-  for (let button of buttons) {
-      button.addEventListener("click", toggleLabel);
-  }
-
-  block.addEventListener("click", function(event) {
-
-      if (event.target === block) {
-          closeAllLabels();
-      }
-  });
-
-}
+  block.addEventListener("click", toggleButtonDesc);
+};
